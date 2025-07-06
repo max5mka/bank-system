@@ -1,4 +1,5 @@
-# you must fill it. Don't commit the file
+# you must fill these fields. Don't commit the file
+
 database:
   default:
     login: your_bd_login
@@ -13,3 +14,7 @@ token:
   default:
     secret: your_secret
     lifetime: your_lifetime
+
+aes:
+  default:
+    key: your_32_bit_key_for_card_encrypt
