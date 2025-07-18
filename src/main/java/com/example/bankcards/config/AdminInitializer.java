@@ -17,10 +17,10 @@ public class AdminInitializer implements ApplicationRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${admin.default.login}")
+    @Value("${admin.credentials.login}")
     private String adminLogin;
 
-    @Value("${admin.default.password}")
+    @Value("${admin.credentials.password}")
     private String adminPassword;
 
     @Override

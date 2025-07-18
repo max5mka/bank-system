@@ -13,10 +13,11 @@ import java.util.Date;
 @Component
 public class TokenService {
 
-    @Value("${example.app.secret}")
+    @Value("${jwt.secret}")
     private String secret;
-    @Value("${example.app.lifetime}")
-    private int lifetime;
+
+    @Value("${jwt.lifetime}") // 1 день по умолчанию
+    private long lifetime;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
