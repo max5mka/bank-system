@@ -13,7 +13,9 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({
-            UserNotFoundException.class,})
+            UserNotFoundException.class,
+            CardNotFoundException.class,
+    })
     public ResponseEntity<String> handleNotFoundException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
