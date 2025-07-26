@@ -1,6 +1,6 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.controller.api.CardResponse;
+import com.example.bankcards.controller.api.response.card.CardResponseForUser;
 import com.example.bankcards.dao.dto.CardDto;
 import com.example.bankcards.dao.dto.UserDto;
 import com.example.bankcards.dao.mapping.CardMapping;
@@ -15,8 +15,8 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/users")
-public class AdminUserController {
+@RequestMapping("/api/admin/users")
+public class UserControllerForAdmin {
 
     private UserService userService;
     private CardService cardService;
@@ -46,8 +46,8 @@ public class AdminUserController {
     @PostMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Создание банковской карты пользователю")
-    public CardResponse create(@PathVariable Long userId) {
+    public CardResponseForUser create(@PathVariable Long userId) {
         CardDto createdCardDto = cardService.create(userId);
-        return cardMapping.toResponse(createdCardDto);
+        return cardMapping.toHideResponseForUser(createdCardDto);
     }
 }

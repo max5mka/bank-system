@@ -1,11 +1,12 @@
 package com.example.bankcards.dao.entity;
 
-import com.example.bankcards.dao.CardStatus;
+import com.example.bankcards.dao.enums.CardStatus;
 import com.example.bankcards.util.converter.YearMonthConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -13,16 +14,14 @@ import java.time.YearMonth;
 
 @Entity
 @Data
-public class Card {
+@EqualsAndHashCode(callSuper = true)
+public class Card extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter(AccessLevel.NONE)
-    @Column(nullable = false, unique = true)
-    private String number;
-
     @Column(nullable = false)
     private String encryptNumber;
 
@@ -45,13 +44,13 @@ public class Card {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Card(String number, String encryptNumber, String owner, YearMonth expiryDate, User user) {
-        this.number = number;
+    public Card(String encryptNumber, String owner, YearMonth expiryDate, User user) {
         this.encryptNumber = encryptNumber;
         this.owner = owner;
         this.expiryDate = expiryDate;
         this.user = user;
     }
 
-    protected Card() {}
+    protected Card() {
+    }
 }

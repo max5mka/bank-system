@@ -1,7 +1,7 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.controller.api.SignInRequest;
-import com.example.bankcards.controller.api.SignUpRequest;
+import com.example.bankcards.controller.api.request.SignInRequest;
+import com.example.bankcards.controller.api.request.SignUpRequest;
 import com.example.bankcards.security.TokenService;
 import com.example.bankcards.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;

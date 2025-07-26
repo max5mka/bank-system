@@ -1,6 +1,6 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.controller.api.CardResponse;
+import com.example.bankcards.controller.api.response.card.CardResponseForUser;
 import com.example.bankcards.dao.mapping.CardMapping;
 import com.example.bankcards.service.CardService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,8 +12,8 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/cards")
-public class AdminCardController {
+@RequestMapping("/api/admin/cards")
+public class CardControllerForAdmin {
 
     private CardService cardService;
     private CardMapping cardMapping;
@@ -21,19 +21,19 @@ public class AdminCardController {
     @GetMapping
     @Operation(summary = "Вывод всех карт")
     @ResponseStatus(HttpStatus.OK)
-    public List<CardResponse> getAllCards() {
+    public List<CardResponseForUser> getAllCards() {
         return cardService.getAllCards()
                 .stream()
-                .map(cardMapping::toResponse)
+                .map(cardMapping::toHideResponseForUser)
                 .toList();
     }
 
     @GetMapping("/{cardId}")
     @Operation(summary = "Вывод конкретной карты")
     @ResponseStatus(HttpStatus.OK)
-    public CardResponse getCard(@PathVariable Long cardId) {
+    public CardResponseForUser getCard(@PathVariable Long cardId) {
         var cardDto = cardService.getCardById(cardId);
-        return cardMapping.toResponse(cardDto);
+        return cardMapping.toHideResponseForUser(cardDto);
     }
 
     @DeleteMapping

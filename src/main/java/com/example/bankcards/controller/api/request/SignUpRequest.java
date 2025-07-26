@@ -1,4 +1,4 @@
-package com.example.bankcards.controller.api;
+package com.example.bankcards.controller.api.request;
 
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;

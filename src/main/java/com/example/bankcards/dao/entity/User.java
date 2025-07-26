@@ -1,16 +1,18 @@
 package com.example.bankcards.dao.entity;
 
-import com.example.bankcards.dao.UserRole;
+import com.example.bankcards.dao.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

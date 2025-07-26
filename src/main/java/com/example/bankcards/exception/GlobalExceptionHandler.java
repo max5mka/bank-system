@@ -15,6 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({
             UserNotFoundException.class,
             CardNotFoundException.class,
+            BankQueryNotFoundException.class,
     })
     public ResponseEntity<String> handleNotFoundException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -23,6 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({
             UserBadRequestException.class,
             UserAlreadyExistsException.class,
+            WrongBankQueryStatusException.class,
     })
     public ResponseEntity<String> handleValidateException(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

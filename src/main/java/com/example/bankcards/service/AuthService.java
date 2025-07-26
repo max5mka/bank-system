@@ -1,7 +1,7 @@
 package com.example.bankcards.service;
 
-import com.example.bankcards.controller.api.SignUpRequest;
-import com.example.bankcards.dao.UserRole;
+import com.example.bankcards.controller.api.request.SignUpRequest;
+import com.example.bankcards.dao.enums.UserRole;
 import com.example.bankcards.dao.entity.User;
 import com.example.bankcards.dao.mapping.UserMapping;
 import com.example.bankcards.dao.repository.UserRepository;

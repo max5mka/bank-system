@@ -1,4 +1,4 @@
-package com.example.bankcards.dao;
+package com.example.bankcards.dao.enums;
 
 public enum UserRole {
 

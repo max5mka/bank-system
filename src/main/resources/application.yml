@@ -1,29 +1,25 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/bank_db
-    username: your_bd_username
-    password: your_bd_password
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
 
-# admin settings
+# Настройки администратора
 admin:
   credentials:
-    login: your_admin_login
-    password: your_admin_password
+    login: admin
+    password: My$PetProjectAdm1n!2025
 
-# spring security
 jwt:
-  secret: "your_random_jwt_secret"
+  secret: "hy8N0Kef4oDqa+rou6ObTkLBuJooXYbW"
   lifetime: 86400000
 
-# encryption secrets
 encryption:
   aes:
-    # 16, 24 or 32 random symbols
-    key: "your_random_encryption_key"
-    # 16 random symbols
-    iv: "your_random_encryption_iv"
+    # 44 random symbols
+    key: "A4V8jJ2RnqW3v6xO9yPfB1uLmZcKp0HsDwEeNbRtCgY="

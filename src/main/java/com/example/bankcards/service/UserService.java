@@ -22,6 +22,12 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    public UserDto findByLogin(String login) {
+        return userRepository.findByLogin(login)
+                .map(userMapping::toDto)
+                .orElseThrow(() -> new UserNotFoundException(login));
+    }
+
     public List<UserDto> findAll() {
         return userRepository.findAll().stream()
                 .map(userMapping::toDto)

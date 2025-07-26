@@ -1,12 +1,7 @@
 package com.example.bankcards.service;
 
 import com.example.bankcards.dao.dto.CardDto;
-import com.example.bankcards.dao.dto.UserDto;
-import com.example.bankcards.dao.mapping.UserMapping;
-import com.example.bankcards.dao.repository.UserRepository;
 import com.example.bankcards.exception.CardNotFoundException;
-import com.example.bankcards.exception.UserNotFoundException;
-import com.example.bankcards.util.CardEncryptor;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,31 +11,31 @@ import java.util.List;
 @AllArgsConstructor
 public class UserCardService {
 
-    private UserRepository userRepository;
-    private UserMapping userMapping;
     private CardService cardService;
-    private CardEncryptor cardEncryptor;
+    private UserService userService;
 
     public List<CardDto> getMyCards(String login) {
-        var userDto = findUser(login);
+        var userDto = userService.findByLogin(login);
         return cardService.getUserCards(userDto.getId());
     }
 
-    private UserDto findUser(String login) {
-        return userRepository.findByLogin(login)
-                .map(userMapping::toDto)
-                .orElseThrow(() -> new UserNotFoundException(login));
+    public List<CardDto> getMyCards(Long userId) {
+        var userDto = userService.findById(userId);
+        return cardService.getUserCards(userDto.getId());
     }
 
-    public CardDto getMyCard(Long cardId, String login) {
-        var cardDto = getMyCards(login).stream()
+    public CardDto findMyCard(String login, Long cardId) {
+        return findFirstCard(getMyCards(login), cardId);
+    }
+
+    public CardDto findMyCard(Long userId, Long cardId) {
+        return findFirstCard(getMyCards(userId), cardId);
+    }
+
+    private CardDto findFirstCard(List<CardDto> cardList, Long cardId) {
+        return cardList.stream()
                 .filter(card -> card.getId().equals(cardId))
                 .findFirst()
                 .orElseThrow(() -> new CardNotFoundException(cardId));
-
-        String encryptNumber = cardDto.getEncryptNumber();
-        String decryptNumber = cardEncryptor.decrypt(encryptNumber);
-        cardDto.setNumber(decryptNumber);
-        return cardDto;
     }
 }

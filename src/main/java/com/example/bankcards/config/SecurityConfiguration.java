@@ -48,8 +48,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/my/cards/**").fullyAuthenticated()
                         .requestMatchers("/api/my/cards/**").hasRole("USER")
 
-                        .requestMatchers("/api/cards/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").fullyAuthenticated()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)

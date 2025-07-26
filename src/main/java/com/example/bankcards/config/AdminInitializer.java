@@ -1,6 +1,6 @@
 package com.example.bankcards.config;
 
-import com.example.bankcards.dao.UserRole;
+import com.example.bankcards.dao.enums.UserRole;
 import com.example.bankcards.dao.repository.UserRepository;
 import com.example.bankcards.dao.entity.User;
 import org.springframework.beans.factory.annotation.Value;

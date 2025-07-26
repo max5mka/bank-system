@@ -1,9 +1,9 @@
 package com.example.bankcards.service;
 
 import com.example.bankcards.dao.dto.CardDto;
-import com.example.bankcards.dao.dto.UserDto;
 import com.example.bankcards.dao.entity.Card;
 import com.example.bankcards.dao.entity.User;
+import com.example.bankcards.dao.enums.CardStatus;
 import com.example.bankcards.dao.mapping.CardMapping;
 import com.example.bankcards.dao.repository.CardRepository;
 import com.example.bankcards.dao.repository.UserRepository;
@@ -24,6 +24,7 @@ public class CardService {
     private UserRepository userRepository;
     private CardMapping cardMapping;
     private CardEncryptor cardEncryptor;
+    private CardNumberService cardNumberService;
 
     public CardDto getCardById(Long cardId) {
         return cardRepository.findById(cardId)
@@ -32,8 +33,7 @@ public class CardService {
     }
 
     public List<CardDto> getAllCards() {
-        var list = cardRepository.findAll();
-        return list.stream()
+        return cardRepository.findAll().stream()
                 .map(cardMapping::toDto).toList();
     }
 
@@ -46,9 +46,8 @@ public class CardService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId));
 
-        String cardNumber = CardNumberService.generateCardNumber();
+        String cardNumber = cardNumberService.generateCardNumber();
         Card card = new Card(
-                CardNumberService.hideNumber(cardNumber),
                 cardEncryptor.encrypt(cardNumber),
                 user.getName(),
                 YearMonth.now().plusYears(5),
@@ -56,6 +55,15 @@ public class CardService {
         );
         Card createdCard = cardRepository.save(card);
         return cardMapping.toDto(createdCard);
+    }
+
+    public CardDto editStatus(Long id, CardStatus cardStatus) {
+        Card entity = cardRepository.findById(id)
+                .orElseThrow(() -> new CardNotFoundException(id));
+
+        entity.setStatus(cardStatus);
+        cardRepository.save(entity);
+        return cardMapping.toDto(entity);
     }
 
     public void deleteAll() {
